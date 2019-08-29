@@ -115,5 +115,27 @@ function onFail3(message) {
 
 }
 
+//image fliping in DataURL
+// function flip(src,target){
+//  var img = new Image();
+//  img.onload = function(){
+//   var c = document.createElement('canvas');
+//   c.width = this.width;
+//   c.height = this.height;
+//   var ctx = c.getContext('2d');
+//   ctx.scale(-1,1);
+//   ctx.drawImage(this,-this.width,0);
+//   this.onload = undefined; 
+//   target.src = c.toDataURL();
+//  }
+//  img.src = src;
+// }
+
+       
 </script>
+
+<!--flip image source
+<body onload="flip('SOMESPRITE.PNG',document.getElementById('fliptest'));">
+<img id="fliptest" /> -->
+</body>
 </html>
