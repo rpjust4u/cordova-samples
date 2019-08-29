@@ -4,6 +4,9 @@
 <head>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <!-- <script type="text/javascript" src="js/fileurl1.js"></script>
+        <script type="text/javascript" src="js/fileuri2.js"></script>
+        <script type="text/javascript" src="js/dataurl1.js"></script> -->
         <style>
         .rotateimg90 {
         -webkit-transform:rotate(90deg); 
@@ -31,7 +34,7 @@
 </style>
 </head>
 <title>
-  Cordova Camera And Crop Plugin Sample
+  Cordova Camera And Crop Plugin
 </title>
 <h>
 Cordova Plugins Sample for Capture and Crop <br>
@@ -45,17 +48,31 @@ Cordova Plugins Sample for Capture and Crop <br>
 <img id = "myImage3" class="fit"> </img><br>
 
 <script>
-    // Method 1
+    // Method 1  ..without using crop plugin
 function cameraTakePicture() { 
    navigator.camera.getPicture(onSuccess, onFail, {  
 
-            encodingType: Camera.EncodingType.PNG,
+            encodingType: Camera.EncodingType.JPEG,
             mediaType: Camera.MediaType.PICTURE,
             allowEdit: true,
-            // targetWidth:1080,
-            // targetHeight:600,
+            // targetWidth:1080, //500
+            // targetHeight:600,  //500
             destinationType: Camera.DestinationType.FILE_URI,
             correctOrientation: true,
+            saveToPhotoAlbum: true, //saving in disk
+            sourceType: Camera.PictureSourceType.CAMERA,
+
+    //         quality: 50,
+    //    destinationType: Camera.DestinationType.DATA_URL, //DATA_URL , FILE_URI
+    //    sourceType: Camera.PictureSourceType.CAMERA,
+    //    encodingType: Camera.EncodingType.JPG,
+    //    mediaType: Camera.MediaType.PICTURE,
+    //    targetWidth: 500,
+    //    targetHeight: 500,
+    //    saveToPhotoAlbum: true,
+    //    correctOrientation: true 
+
+
    });  
    
 function onSuccess(imageData) { 
@@ -66,7 +83,7 @@ function onSuccess(imageData) {
     alert('Failed because: ' + message); 
    } 
 }
-//Method 2
+//Method 2  with using crop plugin
 function Newt(){
   navigator.camera.getPicture(onSuccess2, onFail2, {
       quality: 50,
@@ -90,14 +107,11 @@ function Newt(){
 }
 //Method 3
 function DataURI(){
-    navigator.camera.getPicture(onSuccess3, onFail3, {  
- 
+   navigator.camera.getPicture(onSuccess3, onFail3, {  
    quality: 50, 
   destinationType: Camera.DestinationType.DATA_URL,
    cameraDirection: 1,
-
    allowEdit: true
-
 });  
 
 function onSuccess3(imageData) { 
@@ -108,6 +122,8 @@ function onSuccess3(imageData) {
 function onFail3(message) { 
  alert('Failed because: ' + message); 
 } 
+
 }
+
 </script>
 </html>
