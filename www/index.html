@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <!-- <script type="text/javascript" src="js/fileurl1.js"></script>
+        <script type="text/javascript" src="js/fileuri2.js"></script>
+        <script type="text/javascript" src="js/dataurl1.js"></script> -->
+        <style>
+        .rotateimg90 {
+        -webkit-transform:rotate(90deg); 
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+  }
+  .fit {
+          max-width: 99%;
+          max-height: 99%;
+        }
+  .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+}
+</style>
+</head>
+<title>
+  Cordova Camera And Crop Plugin
+</title>
+<h>
+Cordova Plugins Sample for Capture and Crop <br>
+</h>
+<br>
+<button class="button" id = "cameraTakePicture" onclick="cameraTakePicture()"> TAKE PICTURE FILE URI Method</button><br>
+<img id = "myImage" class="rotateimg90 fit"> </img> <br>
+<button class="button" id = "Newt" onclick="Newt()">TAKE PICTURE FILE URI Method 2</button> <br>
+<img id = "myImage2" class="rotateimg90 fit"> </img> <br>
+<button class="button" id = "DataURI" onclick="DataURI()">TAKE PICTURE DATA URI Method</button> <br>
+<img id = "myImage3" class="fit"> </img><br>
+
+<script>
+    // Method 1
+function cameraTakePicture() { 
+   navigator.camera.getPicture(onSuccess, onFail, {  
+
+            encodingType: Camera.EncodingType.PNG,
+            mediaType: Camera.MediaType.PICTURE,
+            allowEdit: true,
+            // targetWidth:1080,
+            // targetHeight:600,
+            destinationType: Camera.DestinationType.FILE_URI,
+            correctOrientation: true,
+   });  
+   
+function onSuccess(imageData) { 
+      var image = document.getElementById('myImage'); 
+      image.src = imageData;
+   }  
+   function onFail(message) { 
+    alert('Failed because: ' + message); 
+   } 
+}
+//Method 2
+function Newt(){
+  navigator.camera.getPicture(onSuccess2, onFail2, {
+      quality: 50,
+      destinationType: Camera.DestinationType.FILE_URI
+  });
+
+  function onSuccess2(imageData) {
+       console.log(imageData);
+       plugins.crop(function success (data) {
+          console.log(data);
+          var image = document.getElementById('myImage2');
+          image.src = data;
+       }, 
+       function fail () {
+
+       }, imageData, {quality:100});
+  }
+  function onFail2(message) { 
+     alert('Failed because: ' + message); 
+    } 
+}
+//Method 3
+function DataURI(){
+    navigator.camera.getPicture(onSuccess3, onFail3, {  
+ 
+   quality: 50, 
+  destinationType: Camera.DestinationType.DATA_URL,
+   cameraDirection: 1,
+
+   allowEdit: true
+
+});  
+
+function onSuccess3(imageData) { 
+    var image = document.getElementById('myImage3'); 
+    image.src = "data:image/jpeg;base64," + imageData; 
+
+}  
+function onFail3(message) { 
+ alert('Failed because: ' + message); 
+} 
+
+}
+
+
+
+</script>
+</html>
